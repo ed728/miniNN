@@ -3,6 +3,7 @@ import numpy as np
 from network import NeuralNetwork
 from layer import FullyConnectedLayer
 from activation import Sigmoid
+from loader import load_NN
 
 def compute_numerical_gradient(N, X, y):
     """
@@ -29,7 +30,7 @@ def compute_numerical_gradient(N, X, y):
 
     return numgrad
 
-if __name__=="__main__":
+def sanity_check():
     NN = NeuralNetwork(2)
     NN.add_layer(FullyConnectedLayer(3, Sigmoid()))
     NN.add_layer(FullyConnectedLayer(1, Sigmoid()))
@@ -37,10 +38,9 @@ if __name__=="__main__":
     Y = np.array(([75], [82], [93]), dtype=float)
     X = X/np.amax(X, axis=0)
     Y = Y/100.
-    print(NN.get_params())
-    print(NN.run(X))
-    print(NN.costX(X, Y))
     print("Numeric check:")
     print(NN.compute_gradients_unpacked(X, Y))
     print(compute_numerical_gradient(NN, X, Y))
 
+if __name__=="__main__":
+    sanity_check()
